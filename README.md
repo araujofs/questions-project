@@ -58,12 +58,14 @@ cd questions-project
 
 ### 2. Configure the database
 
-Create a PostgreSQL database and update `src/main/resources/application.properties` (or `application.yml`) with your credentials:
+Create a PostgreSQL database and update `src/main/resources/application.yml` with your credentials:
 
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/questions
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/questions
+    username: your_username
+    password: your_password
 ```
 
 ### 3. Build and run
