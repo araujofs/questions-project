@@ -1,0 +1,52 @@
+@startuml main
+
+  class "User" as u {
+    - id: Long
+    - name: String
+    - admin: boolean
+    - results: Set<Result>
+  }
+
+  class "Race" as r {
+    - id: Long
+    - title: String
+    - description: String
+    - duration: Integer
+    - questions: Set<Question>
+    - results: Set<Result>
+  }
+
+  class "Question" as q {
+    - id: Long
+    - statement: String
+    - points: Integer
+    - race: Race
+    - answers: Set<Answer>
+  }
+
+  class "Answer" as a {
+    - id: Long
+    - content: String
+    - correct: boolean
+    - question: Question
+  }
+
+  class "Result" as re {
+    - id: Long
+    - participant: User
+    - race: Race
+    - points: Integer
+    - answeredAt: LocalDateTime
+  }
+
+  r "1" *-- "0..*" q
+  q "1" *-- "0..*" a
+
+  r "0..*" - "0..*" u
+  (r, u) .. re
+  note on link
+    from this relationship 
+    result receives race and user
+  end note
+
+@enduml
