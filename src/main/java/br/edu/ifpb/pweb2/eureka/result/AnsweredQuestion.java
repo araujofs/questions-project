@@ -1,6 +1,6 @@
-package br.edu.ifpb.pweb2.eureka.question;
+package br.edu.ifpb.pweb2.eureka.result;
 
-import jakarta.persistence.Column;
+import br.edu.ifpb.pweb2.eureka.question.Question;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -9,37 +9,35 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
-public class Answer {
+class AnsweredQuestion {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
-  private String content;
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  private Result result;
 
-  @Column
-  private boolean correct;
-
+  // unidirectional
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "question_id", nullable = false)
   private Question question;
+
+  private boolean answeredCorrectly;
 
   @Override
   public boolean equals(Object o) {
     if (this == o)
       return true;
-    if (!(o instanceof Answer))
+    if (!(o instanceof AnsweredQuestion))
       return false;
 
-    Answer a = (Answer) o;
+    var a = (AnsweredQuestion) o;
     return id != null && id.equals(a.id);
   }
 

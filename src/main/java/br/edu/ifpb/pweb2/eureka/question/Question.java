@@ -15,23 +15,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 public class Question {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column
   private String statement;
 
   @Column
-  private int points;
+  private Integer points;
 
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "race_id", nullable = false)
   private Race race;
 
@@ -40,12 +44,6 @@ public class Question {
       CascadeType.PERSIST
   }, orphanRemoval = true)
   private Set<Answer> answers = new HashSet<>();
-
-  public void setRace(Race r) {
-    if (r == null) {
-      throw new IllegalArgumentException("Race argument must not be null");
-    }
-  }
 
   public void addAnswer(Answer a) {
     Objects.requireNonNull(a, "Answer argument must not be null");

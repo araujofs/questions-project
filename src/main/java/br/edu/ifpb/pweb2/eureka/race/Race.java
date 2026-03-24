@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import br.edu.ifpb.pweb2.eureka.question.Question;
+import br.edu.ifpb.pweb2.eureka.result.Result;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,15 +14,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 public class Race {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column
   private String title;
@@ -30,13 +35,19 @@ public class Race {
   private String description;
 
   @Column
-  private int duration;
+  private Integer duration;
 
   @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = {
       CascadeType.REMOVE,
       CascadeType.PERSIST
   }, orphanRemoval = true)
   private Set<Question> questions = new HashSet<>();
+
+  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = {
+      CascadeType.REMOVE,
+      CascadeType.PERSIST
+  }, orphanRemoval = true)
+  private Set<Result> results = new HashSet<>();
 
   public void addQuestion(Question q) {
     Objects.requireNonNull(q, "Question argument must not be null");
@@ -54,5 +65,23 @@ public class Race {
 
     q.setRace(null);
     questions.remove(q);
+  }
+
+  public void addResult(Result r) {
+    Objects.requireNonNull(r, "Question argument must not be null");
+
+    r.setRace(this);
+    results.add(r);
+  }
+
+  public void removeResult(Result r) {
+    Objects.requireNonNull(r, "Result argument must not be null");
+
+    if (!results.contains(r)) {
+      throw new IllegalArgumentException("Result does not belong to Race");
+    }
+
+    r.setRace(null);
+    results.remove(r);
   }
 }
