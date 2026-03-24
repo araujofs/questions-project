@@ -22,14 +22,8 @@
     - statement: String
     - points: Integer
     - race: Race
-    - answers: Set<Answer>
-  }
-
-  class "Answer" as a {
-    - id: Long
-    - content: String
-    - correct: boolean
-    - question: Question
+    - answers: List<String>
+    - correctAnswer: Integer
   }
 
   class "Result" as re {
@@ -49,7 +43,6 @@
   }
 
   r "1..1" *--- "1..*" q
-  q "1..1" *--- "1..*" a
 
   re "0..*" o-- "1..1" u
   re "0..*" o--- "1..1" r
