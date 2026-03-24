@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.config.security;
+package br.edu.ifpb.pweb2.eureka.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
