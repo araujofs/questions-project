@@ -7,12 +7,14 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-@Controller("/auth")
+@Controller
+@RequestMapping("/signin")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -21,12 +23,12 @@ public class AuthController {
   private final SecurityContextHolderStrategy securityContextHolderStrat = SecurityContextHolder
       .getContextHolderStrategy();
 
-  @GetMapping("/login")
+  @GetMapping
   public String getLoginPage() {
-    return "login";
+    return "signin";
   }
 
-  @PostMapping("/login")
+  @PostMapping
   public String postLoginForm(AuthRequest authBody, HttpServletRequest request, HttpServletResponse response) {
     var auth = this.service.authenticate(authBody);
 
@@ -35,11 +37,7 @@ public class AuthController {
     securityContextHolderStrat.setContext(context);
     securityContextRepo.saveContext(context, request, response);
 
-    CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-
-    // use the details to get an id or smth
-
-    return "login";
+    return "signin";
   }
 
 }

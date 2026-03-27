@@ -20,6 +20,7 @@ public class Security {
   SecurityFilterChain filterChain(HttpSecurity http) {
     http.authorizeHttpRequests(
         auth -> auth
+            .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
             .requestMatchers("/signin", "/signup").anonymous()
             .anyRequest().authenticated())
         .formLogin(form -> form.disable())
