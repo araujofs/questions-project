@@ -33,5 +33,6 @@ build/
 .vscode/
 
 ### TailwindCSS ###
+node
 node_modules
 output.css
