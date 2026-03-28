@@ -1,0 +1,11 @@
+.git
+.gitignore
+
+target
+node
+node_modules
+
+.idea
+.vscode
+
+README.md
