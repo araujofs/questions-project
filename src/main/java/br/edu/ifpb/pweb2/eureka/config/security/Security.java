@@ -25,7 +25,10 @@ public class Security {
             .requestMatchers("/error", "/css/**", "/js/**", "/images/**").permitAll()
             .requestMatchers("/signin", "/signup").anonymous()
             .anyRequest().authenticated())
-        .formLogin(form -> form.disable())
+        .formLogin(form -> form
+            .loginPage("/signin")
+            .defaultSuccessUrl("/home")
+            .permitAll())
         .logout(logout -> logout.logoutUrl("/signout"))
         .csrf(csrf -> csrf.disable());
 
