@@ -1,0 +1,10 @@
+{
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/home/arthur/.sdkman/candidates/java/21.0.2-open",
+      "default": true
+    }
+  ]
+}
