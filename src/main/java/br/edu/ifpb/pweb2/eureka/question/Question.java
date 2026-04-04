@@ -1,7 +1,9 @@
 package br.edu.ifpb.pweb2.eureka.question;
 
+import br.edu.ifpb.pweb2.eureka.question.difficulty.Difficulty;
 import br.edu.ifpb.pweb2.eureka.race.Race;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +30,12 @@ public class Question {
   private String statement;
 
   @Column
-  private Integer points;
+  private Difficulty difficulty;
+
+  @ElementCollection
+  private List<String> answers;
+
+  private Integer correctAnswer;
 
   @ManyToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "race_id", nullable = false)
