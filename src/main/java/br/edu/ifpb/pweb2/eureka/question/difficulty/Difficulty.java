@@ -15,7 +15,7 @@ public enum Difficulty {
     return this.value;
   }
 
-  public static Difficulty fromValue(Integer value) {
+  public static Difficulty fromValue(int value) {
     return Stream.of(values()).filter(val -> val.value.equals(value)).findFirst()
         .orElseThrow(() -> new IllegalArgumentException("ActionType inválido: " + value));
   }

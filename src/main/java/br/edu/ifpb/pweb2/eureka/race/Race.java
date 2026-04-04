@@ -1,9 +1,5 @@
 package br.edu.ifpb.pweb2.eureka.race;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
 import br.edu.ifpb.pweb2.eureka.question.Question;
 import br.edu.ifpb.pweb2.eureka.result.Result;
 import jakarta.persistence.CascadeType;
@@ -14,6 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,25 +27,21 @@ public class Race {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
+  @Column(unique = true)
   private String title;
 
-  @Column
   private String description;
 
-  @Column
   private Integer duration;
 
-  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = {
-      CascadeType.REMOVE,
-      CascadeType.PERSIST
-  }, orphanRemoval = true)
+  private boolean active = false;
+
+  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
+      CascadeType.PERSIST }, orphanRemoval = true)
   private Set<Question> questions = new HashSet<>();
 
-  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = {
-      CascadeType.REMOVE,
-      CascadeType.PERSIST
-  }, orphanRemoval = true)
+  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
+      CascadeType.PERSIST }, orphanRemoval = true)
   private Set<Result> results = new HashSet<>();
 
   public void addQuestion(Question q) {
