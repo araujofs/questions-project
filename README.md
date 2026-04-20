@@ -17,7 +17,7 @@
 
 ## About
 
-**Questions Project** is a Spring Boot web application designed for competitive learning. Participants join task "races" — fast-paced, challenge-style events — and earn points based on their performance. The platform tracks scores and rankings, making it ideal for educational competitions or team-based quiz sessions.
+**Eureka** is a Spring Boot web application designed for competitive learning. Participants join task "races" — fast-paced, challenge-style events — and earn points based on their performance. The platform tracks scores and rankings, making it ideal for educational competitions or team-based quiz sessions.
 
 ---
 
@@ -25,14 +25,17 @@
 
 | Technology | Version | Purpose |
 |---|---|---|
-| **Java** | 25 | Core language |
+| **Java** | 21 | Core language |
 | **Spring Boot** | 4.0.3 | Application framework |
 | **Spring Web MVC** | — | REST & web layer |
 | **Spring Data JPA** | — | ORM & data access |
+| **Spring Validation** | — | Bean validation |
 | **Thymeleaf** | — | Server-side HTML templating |
-| **Flyway** | — | Database schema migrations |
-| **PostgreSQL** | — | Relational database |
+| **H2** | — | In-memory relational database (dev) |
+| **MapStruct** | 1.6.3 | DTO mapping |
 | **Lombok** | — | Boilerplate reduction |
+| **Tailwind CSS** | 4.x | Utility-first CSS framework |
+| **Node.js / pnpm** | 24 / 10 | Frontend tooling |
 | **Maven** | — | Build & dependency management |
 
 ---
@@ -41,9 +44,9 @@
 
 Before running the project, make sure you have the following installed:
 
-- [JDK 25+](https://openjdk.org/)
+- [JDK 21+](https://openjdk.org/)
 - [Maven 3.9+](https://maven.apache.org/)
-- [PostgreSQL 14+](https://www.postgresql.org/)
+- [Node.js 24+](https://nodejs.org/) (for CSS builds)
 
 ---
 
@@ -52,23 +55,13 @@ Before running the project, make sure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/araujofs/questions-project.git
-cd questions-project
+git clone https://github.com/araujofs/eureka.git
+cd eureka
 ```
 
-### 2. Configure the database
+### 2. Build and run
 
-Create a PostgreSQL database and update `src/main/resources/application.yml` with your credentials:
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/questions
-    username: your_username
-    password: your_password
-```
-
-### 3. Build and run
+The application uses an H2 in-memory database in development — no database setup required.
 
 ```bash
 ./mvnw spring-boot:run
@@ -76,10 +69,18 @@ spring:
 
 The application will start on [http://localhost:8080](http://localhost:8080).
 
-### 4. Running tests
+### 3. Running tests
 
 ```bash
 ./mvnw test
+```
+
+### 4. Docker (production)
+
+A `Dockerfile` and `compose.yml` are provided for containerised deployments.
+
+```bash
+docker compose --profile pro up --build
 ```
 
 ---
@@ -89,17 +90,19 @@ The application will start on [http://localhost:8080](http://localhost:8080).
 ```
 src/
 ├── main/
-│   ├── java/br/com/pweb2/questions/
-│   │   ├── QuestionsApplication.java   # Application entry point
-│   │   ├── controller/                 # Web & REST controllers
-│   │   ├── model/                      # JPA entities
-│   │   ├── repository/                 # Data access layer
-│   │   └── service/                    # Business logic
+│   ├── java/br/edu/ifpb/pweb2/eureka/
+│   │   ├── EurekaApplication.java      # Application entry point
+│   │   ├── auth/                       # Authentication (session-based)
+│   │   ├── config/                     # Spring configuration
+│   │   ├── question/                   # Question entity, repository & DTOs
+│   │   ├── race/                       # Race entity, service, controller & DTOs
+│   │   ├── result/                     # Result & answered question entities
+│   │   └── user/                       # User entity & repository
 │   └── resources/
-│       ├── db/migration/               # Flyway SQL migrations
+│       ├── static/css/                 # Tailwind CSS (input/output)
 │       └── templates/                  # Thymeleaf HTML templates
 └── test/
-    └── java/br/com/pweb2/questions/    # Unit & integration tests
+    └── java/br/edu/ifpb/pweb2/eureka/  # Unit & integration tests
 ```
 
 ---
