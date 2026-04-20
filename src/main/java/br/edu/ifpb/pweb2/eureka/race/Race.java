@@ -36,12 +36,10 @@ public class Race {
 
   private boolean active = false;
 
-  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-      CascadeType.PERSIST }, orphanRemoval = true)
+  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Question> questions = new HashSet<>();
 
-  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE,
-      CascadeType.PERSIST }, orphanRemoval = true)
+  @OneToMany(mappedBy = "race", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Result> results = new HashSet<>();
 
   public void addQuestion(Question q) {

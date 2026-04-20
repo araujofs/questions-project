@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastrar questões</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Sora:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link th:href="@{/css/output.css}" rel="stylesheet" />
+  </head>
+
+  <body
+    class="min-h-screen bg-[#f6f4fb] font-[Manrope,sans-serif] text-[#1f2430] antialiased"
+  >
+    <header th:insert="~{home.html :: header}"></header>
+    <main class="px-[0.9rem] py-[1.2rem] sm:px-4 sm:py-6">
+      <form
+        th:action="@{/question/add}"
+        method="post"
+        th:object="${race}"
+        class="mx-auto flex w-full max-w-5xl flex-col gap-4"
+      >
+        <input type="hidden" th:field="*{id}" />
+
+        <section
+          class="top-19 rounded-2xl border border-[#1f243014] bg-white p-5 sm:p-6 shadow-[0_14px_28px_rgba(31,36,48,0.1)]"
+        >
+          <div class="mb-4">
+            <h1
+              class="font-[Sora,sans-serif] text-[1.45rem] font-bold tracking-[-0.01em] text-[#7d3f97]"
+            >
+              Criar questão
+            </h1>
+            <p class="mt-1 text-[0.92rem] text-[#4a5261]">
+              Preencha os campos e clique em adicionar para incluir a questão na
+              lista abaixo.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label
+                for="draft-statement"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Enunciado</label
+              >
+              <textarea
+                id="draft-statement"
+                rows="2"
+                placeholder="Digite o enunciado da questão"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-[#667085] focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              ></textarea>
+            </div>
+
+            <div>
+              <label
+                for="draft-difficulty"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Dificuldade</label
+              >
+              <select
+                id="draft-difficulty"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              >
+                <option value="" disabled selected>Selecione...</option>
+                <option value="EASY">Fácil</option>
+                <option value="MEDIUM">Média</option>
+                <option value="HARD">Difícil</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                for="draft-correct-answer"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Resposta correta</label
+              >
+              <select
+                id="draft-correct-answer"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              >
+                <option value="" disabled selected>Selecione...</option>
+                <option value="0">Resposta 1</option>
+                <option value="1">Resposta 2</option>
+                <option value="2">Resposta 3</option>
+                <option value="3">Resposta 4</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                for="draft-answer-0"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Resposta 1</label
+              >
+              <input
+                id="draft-answer-0"
+                type="text"
+                placeholder="Digite a resposta 1"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-[#667085] focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              />
+            </div>
+
+            <div>
+              <label
+                for="draft-answer-1"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Resposta 2</label
+              >
+              <input
+                id="draft-answer-1"
+                type="text"
+                placeholder="Digite a resposta 2"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-[#667085] focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              />
+            </div>
+
+            <div>
+              <label
+                for="draft-answer-2"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Resposta 3</label
+              >
+              <input
+                id="draft-answer-2"
+                type="text"
+                placeholder="Digite a resposta 3"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-[#667085] focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              />
+            </div>
+
+            <div>
+              <label
+                for="draft-answer-3"
+                class="mb-[0.45rem] block text-[0.9rem] font-bold"
+                >Resposta 4</label
+              >
+              <input
+                id="draft-answer-3"
+                type="text"
+                placeholder="Digite a resposta 4"
+                class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.95rem] py-[0.8rem] text-[0.95rem] transition-[border-color,box-shadow] duration-200 ease-out placeholder:text-[#667085] focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="add-question"
+            class="mt-4 inline-flex cursor-pointer items-center justify-center rounded-xl border-0 bg-[#bf5de4] px-5 py-[0.75rem] text-[0.93rem] font-extrabold tracking-[0.02em] text-white transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[#ab49d2] hover:shadow-[0_10px_22px_rgba(208,108,245,0.32)]"
+          >
+            Adicionar questão
+          </button>
+        </section>
+
+        <section
+          class="rounded-2xl border border-[#1f243014] bg-white p-5 sm:p-6 shadow-[0_14px_28px_rgba(31,36,48,0.1)]"
+        >
+          <div class="mb-4 flex items-center justify-between gap-3">
+            <h2
+              class="font-[Sora,sans-serif] text-[1.2rem] font-semibold tracking-[-0.01em] text-[#1f2430]"
+            >
+              Questões adicionadas
+            </h2>
+            <span
+              id="questions-count"
+              class="rounded-full bg-[#f1f3f7] px-3 py-1 text-[0.83rem] font-semibold text-[#3f4552]"
+              th:text="${#lists.size(race.questions)} + ' questão(ões)'"
+            ></span>
+          </div>
+
+          <p
+            id="empty-state"
+            th:if="${#lists.isEmpty(race.questions)}"
+            class="rounded-xl border border-dashed border-[#cbd0dc] bg-[#fbfbfd] px-4 py-6 text-center text-[0.92rem] text-[#667085]"
+          >
+            Nenhuma questão adicionada ainda.
+          </p>
+
+          <div id="questions-container" class="space-y-4">
+            <article
+              th:each="question, stat : *{questions}"
+              class="question-card rounded-xl border border-[#e6e8ee] bg-[#fbfbff] p-4 sm:p-5"
+              th:attr="data-index=${stat.index}"
+            >
+              <input
+                type="hidden"
+                data-field="id"
+                th:name="|questions[${stat.index}].id|"
+                th:value="${question.id}"
+              />
+
+              <div class="mb-3 flex items-center justify-between gap-3">
+                <h3
+                  class="font-[Sora,sans-serif] text-[1rem] font-semibold text-[#1f2430]"
+                  th:text="'Questão ' + (${stat.index} + 1)"
+                ></h3>
+                <button
+                  type="button"
+                  class="remove-question rounded-lg border border-[#f0c7cf] bg-[#fff2f4] px-3 py-1 text-[0.8rem] font-semibold text-[#b42318] transition hover:bg-[#ffe4e8]"
+                >
+                  Remover
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                  <label
+                    data-label-for="statement"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-statement|"
+                    >Enunciado</label
+                  >
+                  <textarea
+                    rows="2"
+                    required
+                    data-input-id="statement"
+                    data-field="statement"
+                    th:id="|question-${stat.index}-statement|"
+                    th:name="|questions[${stat.index}].statement|"
+                    th:text="${question.statement}"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  ></textarea>
+                </div>
+
+                <div>
+                  <label
+                    data-label-for="difficulty"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-difficulty|"
+                    >Dificuldade</label
+                  >
+                  <select
+                    required
+                    data-input-id="difficulty"
+                    data-field="difficulty"
+                    th:id="|question-${stat.index}-difficulty|"
+                    th:name="|questions[${stat.index}].difficulty|"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  >
+                    <option value="">Selecione</option>
+                    <option
+                      value="EASY"
+                      th:selected="${question.difficulty != null and question.difficulty.name() == 'EASY'}"
+                    >
+                      Fácil
+                    </option>
+                    <option
+                      value="MEDIUM"
+                      th:selected="${question.difficulty != null and question.difficulty.name() == 'MEDIUM'}"
+                    >
+                      Média
+                    </option>
+                    <option
+                      value="HARD"
+                      th:selected="${question.difficulty != null and question.difficulty.name() == 'HARD'}"
+                    >
+                      Difícil
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    data-label-for="correct-answer"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-correct-answer|"
+                    >Resposta correta</label
+                  >
+                  <select
+                    required
+                    data-input-id="correct-answer"
+                    data-field="correctAnswer"
+                    th:id="|question-${stat.index}-correct-answer|"
+                    th:name="|questions[${stat.index}].correctAnswer|"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  >
+                    <option value="">Selecione</option>
+                    <option
+                      value="0"
+                      th:selected="${question.correctAnswer == 0}"
+                    >
+                      Resposta 1
+                    </option>
+                    <option
+                      value="1"
+                      th:selected="${question.correctAnswer == 1}"
+                    >
+                      Resposta 2
+                    </option>
+                    <option
+                      value="2"
+                      th:selected="${question.correctAnswer == 2}"
+                    >
+                      Resposta 3
+                    </option>
+                    <option
+                      value="3"
+                      th:selected="${question.correctAnswer == 3}"
+                    >
+                      Resposta 4
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    data-label-for="answer-0"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-answer-0|"
+                    >Resposta 1</label
+                  >
+                  <input
+                    type="text"
+                    required
+                    data-input-id="answer-0"
+                    data-field="answers[0]"
+                    th:id="|question-${stat.index}-answer-0|"
+                    th:name="|questions[${stat.index}].answers[0]|"
+                    th:value="${question.answers != null and #lists.size(question.answers) > 0 ? question.answers[0] : ''}"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    data-label-for="answer-1"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-answer-1|"
+                    >Resposta 2</label
+                  >
+                  <input
+                    type="text"
+                    required
+                    data-input-id="answer-1"
+                    data-field="answers[1]"
+                    th:id="|question-${stat.index}-answer-1|"
+                    th:name="|questions[${stat.index}].answers[1]|"
+                    th:value="${question.answers != null and #lists.size(question.answers) > 1 ? question.answers[1] : ''}"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    data-label-for="answer-2"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-answer-2|"
+                    >Resposta 3</label
+                  >
+                  <input
+                    type="text"
+                    required
+                    data-input-id="answer-2"
+                    data-field="answers[2]"
+                    th:id="|question-${stat.index}-answer-2|"
+                    th:name="|questions[${stat.index}].answers[2]|"
+                    th:value="${question.answers != null and #lists.size(question.answers) > 2 ? question.answers[2] : ''}"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    data-label-for="answer-3"
+                    class="mb-[0.4rem] block text-[0.88rem] font-bold"
+                    th:for="|question-${stat.index}-answer-3|"
+                    >Resposta 4</label
+                  >
+                  <input
+                    type="text"
+                    required
+                    data-input-id="answer-3"
+                    data-field="answers[3]"
+                    th:id="|question-${stat.index}-answer-3|"
+                    th:name="|questions[${stat.index}].answers[3]|"
+                    th:value="${question.answers != null and #lists.size(question.answers) > 3 ? question.answers[3] : ''}"
+                    class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"
+                  />
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <button
+            type="submit"
+            class="mt-5 w-full cursor-pointer rounded-xl border-0 bg-[#bf5de4] px-4 py-[0.85rem] text-[0.98rem] font-extrabold tracking-[0.02em] text-white transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[#ab49d2] hover:shadow-[0_10px_22px_rgba(208,108,245,0.32)]"
+          >
+            Salvar questões
+          </button>
+        </section>
+      </form>
+    </main>
+
+    <script>
+      const questionsContainer = document.getElementById("questions-container");
+      const emptyState = document.getElementById("empty-state");
+      const questionsCount = document.getElementById("questions-count");
+      const addButton = document.getElementById("add-question");
+
+      const draftStatement = document.getElementById("draft-statement");
+      const draftDifficulty = document.getElementById("draft-difficulty");
+      const draftCorrectAnswer = document.getElementById(
+        "draft-correct-answer",
+      );
+      const draftAnswers = [
+        document.getElementById("draft-answer-0"),
+        document.getElementById("draft-answer-1"),
+        document.getElementById("draft-answer-2"),
+        document.getElementById("draft-answer-3"),
+      ];
+
+      const updateCount = () => {
+        const total =
+          questionsContainer.querySelectorAll(".question-card").length;
+        questionsCount.textContent = `${total} questão(ões)`;
+        if (emptyState) {
+          emptyState.classList.toggle("hidden", total > 0);
+        }
+      };
+
+      const updateCardLabels = () => {
+        const cards = questionsContainer.querySelectorAll(".question-card");
+        cards.forEach((card, index) => {
+          card.dataset.index = index;
+          const title = card.querySelector("h3");
+          if (title) {
+            title.textContent = `Questão ${index + 1}`;
+          }
+
+          card.querySelectorAll("[data-field]").forEach((field) => {
+            const path = field.dataset.field;
+            field.name = `questions[${index}].${path}`;
+          });
+
+          card.querySelectorAll("[data-input-id]").forEach((field) => {
+            field.id = `question-${index}-${field.dataset.inputId}`;
+          });
+
+          card.querySelectorAll("label[data-label-for]").forEach((label) => {
+            label.htmlFor = `question-${index}-${label.dataset.labelFor}`;
+          });
+        });
+
+        updateCount();
+      };
+
+      const bindRemoveButtons = () => {
+        questionsContainer
+          .querySelectorAll(".remove-question")
+          .forEach((button) => {
+            if (button.dataset.bound === "true") {
+              return;
+            }
+
+            button.dataset.bound = "true";
+            button.addEventListener("click", () => {
+              button.closest(".question-card")?.remove();
+              updateCardLabels();
+            });
+          });
+      };
+
+      const createQuestionCard = (values) => {
+        const card = document.createElement("article");
+        card.className =
+          "question-card rounded-xl border border-[#e6e8ee] bg-[#fbfbff] p-4 sm:p-5";
+        card.innerHTML = `
+          <input type="hidden" data-field="id" />
+          <div class="mb-3 flex items-center justify-between gap-3">
+            <h3 class="font-[Sora,sans-serif] text-[1rem] font-semibold text-[#1f2430]"></h3>
+            <button type="button" class="remove-question rounded-lg border border-[#f0c7cf] bg-[#fff2f4] px-3 py-1 text-[0.8rem] font-semibold text-[#b42318] transition hover:bg-[#ffe4e8]">Remover</button>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label data-label-for="statement" class="mb-[0.4rem] block text-[0.88rem] font-bold">Enunciado</label>
+              <textarea rows="2" required data-input-id="statement" data-field="statement" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]"></textarea>
+            </div>
+            <div>
+              <label data-label-for="difficulty" class="mb-[0.4rem] block text-[0.88rem] font-bold">Dificuldade</label>
+              <select required data-input-id="difficulty" data-field="difficulty" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]">
+                <option value="">Selecione</option>
+                <option value="EASY">Fácil</option>
+                <option value="MEDIUM">Média</option>
+                <option value="HARD">Difícil</option>
+              </select>
+            </div>
+            <div>
+              <label data-label-for="correct-answer" class="mb-[0.4rem] block text-[0.88rem] font-bold">Resposta correta</label>
+              <select required data-input-id="correct-answer" data-field="correctAnswer" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]">
+                <option value="">Selecione</option>
+                <option value="0">Resposta 1</option>
+                <option value="1">Resposta 2</option>
+                <option value="2">Resposta 3</option>
+                <option value="3">Resposta 4</option>
+              </select>
+            </div>
+            <div>
+              <label data-label-for="answer-0" class="mb-[0.4rem] block text-[0.88rem] font-bold">Resposta 1</label>
+              <input type="text" required data-input-id="answer-0" data-field="answers[0]" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]" />
+            </div>
+            <div>
+              <label data-label-for="answer-1" class="mb-[0.4rem] block text-[0.88rem] font-bold">Resposta 2</label>
+              <input type="text" required data-input-id="answer-1" data-field="answers[1]" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]" />
+            </div>
+            <div>
+              <label data-label-for="answer-2" class="mb-[0.4rem] block text-[0.88rem] font-bold">Resposta 3</label>
+              <input type="text" required data-input-id="answer-2" data-field="answers[2]" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]" />
+            </div>
+            <div>
+              <label data-label-for="answer-3" class="mb-[0.4rem] block text-[0.88rem] font-bold">Resposta 4</label>
+              <input type="text" required data-input-id="answer-3" data-field="answers[3]" class="w-full rounded-xl border border-[#1f243033] bg-white px-[0.9rem] py-[0.78rem] text-[0.93rem] transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#43bf8a] focus:outline-none focus:ring-[3px] focus:ring-[#6cf5ba47]" />
+            </div>
+          </div>
+        `;
+
+        const statement = card.querySelector('[data-field="statement"]');
+        const difficulty = card.querySelector('[data-field="difficulty"]');
+        const correctAnswer = card.querySelector(
+          '[data-field="correctAnswer"]',
+        );
+        const answer0 = card.querySelector('[data-field="answers[0]"]');
+        const answer1 = card.querySelector('[data-field="answers[1]"]');
+        const answer2 = card.querySelector('[data-field="answers[2]"]');
+        const answer3 = card.querySelector('[data-field="answers[3]"]');
+
+        statement.value = values.statement;
+        difficulty.value = values.difficulty;
+        correctAnswer.value = values.correctAnswer;
+        answer0.value = values.answers[0];
+        answer1.value = values.answers[1];
+        answer2.value = values.answers[2];
+        answer3.value = values.answers[3];
+
+        return card;
+      };
+
+      const validateDraft = () => {
+        if (!draftStatement.value.trim()) {
+          draftStatement.reportValidity();
+          draftStatement.focus();
+          return false;
+        }
+
+        if (!draftDifficulty.value) {
+          draftDifficulty.reportValidity();
+          draftDifficulty.focus();
+          return false;
+        }
+
+        if (!draftCorrectAnswer.value) {
+          draftCorrectAnswer.reportValidity();
+          draftCorrectAnswer.focus();
+          return false;
+        }
+
+        for (const answer of draftAnswers) {
+          if (!answer.value.trim()) {
+            answer.reportValidity();
+            answer.focus();
+            return false;
+          }
+        }
+
+        return true;
+      };
+
+      const clearDraft = () => {
+        draftStatement.value = "";
+        draftDifficulty.value = "";
+        draftCorrectAnswer.value = "";
+        draftAnswers.forEach((answer) => {
+          answer.value = "";
+        });
+      };
+
+      addButton.addEventListener("click", () => {
+        if (!validateDraft()) {
+          return;
+        }
+
+        const values = {
+          statement: draftStatement.value.trim(),
+          difficulty: draftDifficulty.value,
+          correctAnswer: draftCorrectAnswer.value,
+          answers: draftAnswers.map((answer) => answer.value.trim()),
+        };
+
+        const card = createQuestionCard(values);
+        questionsContainer.appendChild(card);
+        updateCardLabels();
+        bindRemoveButtons();
+        clearDraft();
+      });
+
+      bindRemoveButtons();
+      updateCardLabels();
+    </script>
+  </body>
+</html>

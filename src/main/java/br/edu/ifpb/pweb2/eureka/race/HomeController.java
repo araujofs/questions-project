@@ -21,4 +21,9 @@ public class HomeController {
 
     return "home";
   }
+
+  @GetMapping
+  public String getRoot() {
+    return "redirect:/home";
+  }
 }
