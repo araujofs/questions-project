@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RaceCreateDto {
+public class RaceDto {
 
+  private Long id;
   private String title;
   private String description;
   private Integer duration;
