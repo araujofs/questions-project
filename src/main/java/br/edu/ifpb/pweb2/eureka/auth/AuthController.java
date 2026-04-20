@@ -20,10 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
   // private final AuthService service;
-  // private final SecurityContextRepository securityContextRepo;
-  // private final SecurityContextHolderStrategy securityContextHolderStrat =
-  // SecurityContextHolder
-  // .getContextHolderStrategy();
 
   @GetMapping
   public String getLoginPage(Model model) {
